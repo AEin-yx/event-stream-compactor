@@ -28,7 +28,7 @@ Basic repo setup and structure
 - Implement configurable encodings
 - Develop comprehensive test suite
 
-## Day 5-8 Task 2: Log Parser Engine
+## Day 2 Task 2: Log Parser Engine
 ### Technical Achievements
 - Implemented regex-based HDFS log parser with ISO-8601 timestamp conversion
 - Developed statistical analysis module (events/sec, log level distribution)
@@ -60,7 +60,7 @@ Basic repo setup and structure
 - Add filtering capabilities
 - Sampling mode for billion-scale logs
 
-## Day 9-15 Task 3: In-Memory Key-Value Store (Mini-Redis Clone)
+## Day 3 Task 3: In-Memory Key-Value Store (Mini-Redis Clone)
 ### Technical Achievements
 
 - Implemented full CRUD operations (SET, GET, DELETE) with TTL support  
@@ -121,3 +121,20 @@ Basic repo setup and structure
 - Process isolation discovery: Each CLI command creates new process, requiring disk persistence
 - Atomic write platform differences: Windows vs Unix file replacement behavior
 - Cleanup consistency: Expired keys cleaned from memory but persisted to disk until fixed
+
+## Day 4
+Design Review & Strategic De-prioritization (Rate Limiting)  
+Goal: Conducted an in-depth design review of potential components, specifically assessing the role and necessity of rate limiting within the core Event Stream Compactor architecture.
+
+### Technical Achievements (Without implementation):  
+
+Researched and understood various rate limiting algorithms (Token Bucket, Leaky Bucket, Sliding Window Log/Counter).  
+Analyzed the typical input/output and use cases for rate limiters in distributed systems.  
+Evaluated the trade-offs associated with different rate limiting strategies (e.g., memory vs. accuracy, consistency in distributed environments).  
+### System Design Decisions:
+
+- Decision to De-prioritize Rate Limiter Implementation for Core Project Scope: After thorough review and alignment with the primary goal of demonstrating a "Distributed Event Stream Compactor," it was decided that a dedicated rate limiter component, while a valuable general distributed systems pattern, is not critical to the core value proposition and functionality of this specific project.
+- The primary objective of this project is to showcase end-to-end event stream compaction and distributed storage/aggregation.
+Rate limiting primarily controls the ingestion rate or resource access rate to a system, preventing overload. While important for a production system, it's a distinct concern from the compaction logic itself and the efficient storage of compacted data.
+- Implementing a robust, production-grade rate limiter (especially one that accounts for distribution and consistency) would introduce significant complexity and time commitment, diverting resources from the core compaction and distribution mechanisms that are the project's unique point.
+- The project's current focus is on demonstrating the pipeline from raw logs to compacted, aggregated streams, where performance is handled via buffering (Producer-Consumer) and efficient algorithms (Stream Compressor).
