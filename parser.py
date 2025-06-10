@@ -20,10 +20,13 @@ def parser(file:Path,stats:bool=False):
     buffer=[]
     
     with file.open("r",encoding="utf-8") as f:     
+        # Look at every line in file
         for log_line in f:
+            # look for a match with pattern 
             match = re.match(pattern, log_line)
             total+=1
             if match:
+                # create a new dict every time you find a match
                 data = match.groupdict()
 
                 if data['level']=="INFO":
@@ -41,6 +44,7 @@ def parser(file:Path,stats:bool=False):
                     data["timestamp"] = dt.isoformat()
                 except ValueError:
                     data["timestamp"] = "invalid"
+                # add the dict to the buffer
                 buffer.append(data)
 
                 
